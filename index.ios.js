@@ -13,38 +13,46 @@ import {
   Text,
   View,
   Image,
+  ListView,
   // ActivityIndicatorIOS,
   // NavigatorIOS,
 } from 'react-native';
-class HeadText extends Component{
 
-  render(){
-    return (
-      <Text stytle={styles.itemText}>
-        {this.props.children}
-      </Text>
-    );
-  }
-}
 
 
 export default class MovieTalk extends Component {
+    constructor(props){
+      super(props);
+      let movies=[
+      {title:'逍客的救赎'},
+      {title:'逍客的救赎2'},
+      {title:'逍客的救赎3'},
+      {title:'逍客的救赎4'}
+
+
+    ];
+    let dataSource= new ListView.DataSource({
+      rowHasChanged:(row1,row2)=>row1 !== row2
+    });
+    this.state ={
+      movies:dataSource.cloneWithRows(movies)
+    };
+  }
 
 
   render() {
     return (
 
   <View  style={styles.container}>
-    <Image
-style={styles.backgroundImage}
-source={{uri:'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1486344781&di=084a6ad23044ce78202f510a212b5bd5&src=http://c.hiphotos.baidu.com/image/pic/item/7af40ad162d9f2d38d7056c8acec8a136327ccb0.jpg'}}
- //source={{uri:'http://a.hiphotos.baidu.com/image/pic/item/279759ee3d6d55fb924d52c869224f4a21a4dd50.jpg'}}
-  >
-  <View style={styles.overlay}>
-    <Text style={styles.overlayHeader}>在座的各位都是辣鸡</Text>
-    <Text style={styles.overlaySubHeader}>啊啊小标题</Text>
-  </View>
-  </Image>
+
+      <ListView
+         dataSource={this.state.movies}
+          renderRow={
+            movie => <Text style={styles.itemText}>{movie.title}</Text>
+          }
+               >
+
+      </ListView>
   </View>
 
     );
