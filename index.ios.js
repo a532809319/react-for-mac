@@ -27,7 +27,8 @@ export default class MovieTalk extends Component {
     this.state ={
       movies:new ListView.DataSource({
         rowHasChanged:(row1,row2)=>row1 !== row2
-    })
+    }),
+    loaded:false
   };
   this.fetchData();
 }
@@ -35,9 +36,10 @@ export default class MovieTalk extends Component {
     fetch(REQUEST_URL)
     .then(response => response.json())
     .then(responseDate => {
-    //console.log(responseDate);
+    console.log(responseDate);
     this.setState({
-      movies:this.state.movies.cloneWithRows(responseDate.subjects)
+      movies:this.state.movies.cloneWithRows(responseDate.subjects),
+      loaded:true
     })
 
   }).done();
@@ -45,6 +47,15 @@ export default class MovieTalk extends Component {
 
 
   render() {
+    if(!this.state.loaded){
+      return(
+        <View style={styles.container}>
+          <View style={styles.loading}>
+            <Text>loaded</Text>
+          </View>
+        </View>
+      );
+    }
     return (
 
   <View  style={styles.container}>
@@ -64,6 +75,11 @@ export default class MovieTalk extends Component {
 }
 
 const styles = StyleSheet.create({
+  loading:{
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center'
+  },
   overlay:{
     backgroundColor: 'rgba(0,0,0,0.1)',
     alignItems:'center'
