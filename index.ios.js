@@ -18,26 +18,30 @@ import {
   // NavigatorIOS,
 } from 'react-native';
 
-
+const REQUEST_URL = 'https://api.douban.com/v2/movie/top250';
 
 export default class MovieTalk extends Component {
     constructor(props){
       super(props);
-      let movies=[
-      {title:'逍客的救赎'},
-      {title:'逍客的救赎2'},
-      {title:'逍客的救赎3'},
-      {title:'逍客的救赎4'}
 
-
-    ];
-    let dataSource= new ListView.DataSource({
-      rowHasChanged:(row1,row2)=>row1 !== row2
-    });
     this.state ={
-      movies:dataSource.cloneWithRows(movies)
-    };
-  }
+      movies:new ListView.DataSource({
+        rowHasChanged:(row1,row2)=>row1 !== row2
+    })
+  };
+  this.fetchData();
+}
+  fetchData(){
+    fetch(REQUEST_URL)
+    .then(response => response.json())
+    .then(responseDate => {
+    //console.log(responseDate);
+    this.setState({
+      movies:this.state.movies.cloneWithRows(responseDate.subjects)
+    })
+
+  }).done();
+}
 
 
   render() {

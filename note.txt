@@ -1,0 +1,10 @@
+
+Listview  
+<ListView
+   dataSource={this.state.movies}
+    renderRow={
+      movie => <Text style={styles.itemText}>{movie.title}</Text>
+    }
+         >
+
+</ListView>
