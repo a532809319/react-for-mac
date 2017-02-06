@@ -40,11 +40,46 @@ export default class MovieTalk extends Component {
     this.setState({
       movies:this.state.movies.cloneWithRows(responseDate.subjects),
       loaded:true
-    })
+    });
 
-  }).done();
+
+  })
+  .then(()=>{
+  console.log(this.state.movies);
+    console.log(1);
+  })
+
+  .done();
 }
+renderMovieList(movie){
+  return(
+    <View style={styles.Item}>
+      <View style={styles.ItemImage}>
+         <Image
+           source={{
 
+           uri : movie.images.large
+          }}
+          style={styles.image}
+        />
+      </View>
+      <View style={styles.itemContent}>
+        <Text style={styles.itemHeader}>
+            {movie.title}
+        </Text>
+        <Text style={styles.itemMeta}>
+            {movie.original_title}({movie.year})
+
+        </Text>
+        <Text style={styles.redText}>
+              <Text>
+                 {movie.rating.average}
+              </Text>
+        </Text>
+      </View>
+    </View>
+  );
+}
 
   render() {
     if(!this.state.loaded){
@@ -62,9 +97,8 @@ export default class MovieTalk extends Component {
 
       <ListView
          dataSource={this.state.movies}
-          renderRow={
-            movie => <Text style={styles.itemText}>{movie.title}</Text>
-          }
+          renderRow={this.renderMovieList}//不能加state
+
                >
 
       </ListView>
@@ -75,6 +109,27 @@ export default class MovieTalk extends Component {
 }
 
 const styles = StyleSheet.create({
+  Item:{
+    flexDirection:'row',
+    borderBottomWidth:2,
+    borderColor:'#ccc',
+    flex:1
+  },
+  itemContent:{
+   marginTop:10,
+   marginLeft:10
+  },
+  itemHeader:{
+    fontSize:26,
+    color:'rgb(28, 81, 215)',
+  },
+  itemMeta:{
+    margin:15,
+    marginLeft:0
+  },
+  redText:{
+    color:'red'
+  },
   loading:{
     flex:1,
     justifyContent:'center',
@@ -106,8 +161,8 @@ const styles = StyleSheet.create({
   },
 
   image:{
-    width:100,
-    height:100,
+    width:118,
+    height:180,
     // backgroundColor:'red',
     margin:6,
     resizeMode:'cover'
