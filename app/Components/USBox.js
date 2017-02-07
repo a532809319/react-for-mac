@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from '../Styles/Main';
-
+//let{ActivityIndicatorIOS}=React;
 import {
   // TouchableHighlight,
   // TabBarIOS,
@@ -10,13 +10,16 @@ import {
   View,
   Image,
   ListView,
-  // ActivityIndicatorIOS,
+
+  ActivityIndicator,
+  TouchableHighlight,
+
   // NavigatorIOS,
 } from 'react-native';
 
-const REQUEST_URL = 'https://api.douban.com/v2/movie/top250';
+const REQUEST_URL = 'https://api.douban.com/v2/movie/coming_soon';
 
-class MovieList extends Component {
+class ComeList extends Component {
     constructor(props){
       super(props);
 
@@ -49,6 +52,14 @@ class MovieList extends Component {
 }
 renderMovieList(movie){
   return(
+    <TouchableHighlight
+      underlayColor="rgba(34, 26, 33 ,0.1)"
+      onPress={()=>{
+        console.log(movie.title);
+      }}
+
+      >
+
     <View style={styles.Item}>
       <View style={styles.ItemImage}>
          <Image
@@ -74,6 +85,8 @@ renderMovieList(movie){
         </Text>
       </View>
     </View>
+  </TouchableHighlight>
+
   );
 }
 
@@ -82,12 +95,18 @@ renderMovieList(movie){
       return(
         <View style={styles.container}>
           <View style={styles.loading}>
-            <Text>loaded</Text>
+
+
+      <ActivityIndicator
+    color="#6435c9"
+    size="large"
+       />
           </View>
         </View>
       );
     }
     return (
+
 
   <View  style={styles.container}>
 
@@ -103,4 +122,4 @@ renderMovieList(movie){
     );
   }
 }
-export  {MovieList as default}
+export  {ComeList as default}

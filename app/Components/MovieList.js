@@ -53,9 +53,9 @@ class MovieList extends Component {
 renderMovieList(movie){
   return(
     <TouchableHighlight
-      underlayColor="rgb(107, 63, 233)"
+      underlayColor="rgba(34, 26, 33 ,0.1)"
       onPress={()=>{
-        console.log(1);
+        console.log(movie.title);
       }}
 
       >
