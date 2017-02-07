@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from '../Styles/Main';
-//let{ActivityIndicatorIOS}=React;
+
 import {
   // TouchableHighlight,
   // TabBarIOS,
@@ -10,10 +10,7 @@ import {
   View,
   Image,
   ListView,
-
-  ActivityIndicator,
-  TouchableHighlight,
-
+  // ActivityIndicatorIOS,
   // NavigatorIOS,
 } from 'react-native';
 
@@ -52,14 +49,6 @@ class MovieList extends Component {
 }
 renderMovieList(movie){
   return(
-    <TouchableHighlight
-      underlayColor="rgb(107, 63, 233)"
-      onPress={()=>{
-        console.log(1);
-      }}
-
-      >
-
     <View style={styles.Item}>
       <View style={styles.ItemImage}>
          <Image
@@ -85,8 +74,6 @@ renderMovieList(movie){
         </Text>
       </View>
     </View>
-  </TouchableHighlight>
-
   );
 }
 
@@ -95,18 +82,12 @@ renderMovieList(movie){
       return(
         <View style={styles.container}>
           <View style={styles.loading}>
-
-
-      <ActivityIndicator
-    color="#6435c9"
-    size="large"
-       />
+            <Text>loaded</Text>
           </View>
         </View>
       );
     }
     return (
-
 
   <View  style={styles.container}>
 
